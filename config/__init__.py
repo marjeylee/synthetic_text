@@ -1,0 +1,11 @@
+FONTS_DIR_PATH = 'F:/code/orc/dataset/TTF_Files/'  # ttf字体文件所在文件夹
+CHOOSE_FONTS_SIZE = 50  # 选择其中多少种字体。
+GENERATE_CHARACTER = '1234567890QWERTYUIOPASDFGHJKLZXCVBNM'
+GENERATE_DIE_PATH = 'F:/code/orc/dataset/gen/'
+GENERATE_ORIG_CHAR_DIE_PATH = GENERATE_DIE_PATH + '/orig/'  # 生成的原始字节保存目录
+FONT_SIZE = 100  # 生成字节大小
+CHAR_MAX_NUM_PER_IMAGE = 10
+MAX_MARGIN = 10
+FORMAT_IMAGE_WIDTH = 100
+FORMAT_IMAGE_HEIGHT = 32
+BACKGROUND_DIR_PATH = 'F:/code/orc/dataset/back_ground'
