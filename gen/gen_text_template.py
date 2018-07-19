@@ -79,8 +79,8 @@ def gen_template_text_image():
     shape = text_img.shape
     format_height = int(shape[1] * (shape[0] / FORMAT_IMAGE_WIDTH))
     if format_height > FORMAT_IMAGE_WIDTH:  # 压缩
-        cv2.imwrite('./tmp.jpg', text_img)
-        text_img = cv2.imread('./tmp.jpg')
+        cv2.imwrite('./tmp4.jpg', text_img)
+        text_img = cv2.imread('./tmp4.jpg')
         text_img = cv2.resize(text_img, (FORMAT_IMAGE_WIDTH, FORMAT_IMAGE_HEIGHT))
     else:
         radio = FORMAT_IMAGE_WIDTH / FORMAT_IMAGE_HEIGHT
@@ -88,8 +88,8 @@ def gen_template_text_image():
         res = width - shape[1]
         res_arr = np.zeros((shape[0], res, 3), dtype=np.int)
         text_img = np.concatenate((text_img, res_arr), axis=1)
-        cv2.imwrite('./tmp.jpg', text_img)
-        text_img = cv2.imread('./tmp.jpg')
+        cv2.imwrite('./tmp4.jpg', text_img)
+        text_img = cv2.imread('./tmp4.jpg')
         text_img = cv2.resize(text_img, (FORMAT_IMAGE_WIDTH, FORMAT_IMAGE_HEIGHT))
     return text_img, label
 
