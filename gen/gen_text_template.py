@@ -1,6 +1,7 @@
 """
 生成图片文本模板
 """
+
 import uuid
 
 import cv2

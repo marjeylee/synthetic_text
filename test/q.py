@@ -1,7 +1,5 @@
-import numpy as np
+import json
 
-from config import CHAR_MAX_NUM_PER_IMAGE
-
-for i in range(100):
-    num = np.random.randint(0, CHAR_MAX_NUM_PER_IMAGE + 1, dtype=int)
-    print(num)
+dic = [{'age': [123, 32], 'job': 'student'}]
+dic_str = json.dumps(dic)
+print(dic_str)

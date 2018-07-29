@@ -57,6 +57,10 @@ def gen_chars():
 
 
 def get_all_orig_char_path():
+    """
+    获取所有初始图片文本
+    :return:
+    """
     dir_path = GENERATE_DIE_PATH + 'orig'
     file_paths = get_all_file_from_dir(dir_path)
     return file_paths
