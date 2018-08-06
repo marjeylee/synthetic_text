@@ -17,10 +17,10 @@ from xml.dom.minidom import parse
 slip label image from original image and annotation info 
 """
 __author__ = 'li'
-ANNOTATION_PATH = 'F:/dataset/container_dataset/annotation'
-LABEL_PATH = 'F:/dataset/container_dataset/label/'
-IMAGE_PATH = 'F:/dataset/container_dataset/image/'
-DETECTION_LABEL_PATH = 'F:/dataset/container_dataset/training_data/label/'
+ANNOTATION_PATH = 'F:/dataset/second_label/label/'
+LABEL_PATH = 'F:/dataset/second_label/image/'
+IMAGE_PATH = 'F:/dataset/second_label/image/'
+DETECTION_LABEL_PATH = 'F:/dataset/second_label/detection_label/'
 
 
 def get_unrelated_image():
@@ -85,15 +85,19 @@ def write_annotation(annotation_info):
     for info in annotation_info:
         image_name = info['image_name'].replace('.jpg', '.txt')
         regions = info['region']
-        with open(DETECTION_LABEL_PATH + image_name, mode='w', encoding='utf8') as file:
-            if len(regions) > 0:
+        if len(regions) > 0:
+            with open(DETECTION_LABEL_PATH + image_name, mode='w', encoding='utf8') as file:
                 for r in regions:
                     label = str(r['label'])
                     p1 = r['p1']
                     p2 = r['p2']
-                    coordinate = str(p2[1]) + ',' + str(p2[0]) + ',' \
+                    # coordinate = str(p2[1]) + ',' + str(p2[0]) + ',' \
+                    #              + str(p2[1]) + ',' + str(p1[0]) + ',' \
+                    #              + str(p1[1]) + ',' + str(p1[0]) + ',' \
+                    #              + str(p1[1]) + ',' + str(p2[0]) + ',' + label + '\n'
+                    coordinate = str(p1[1]) + ',' + str(p1[0]) + ',' \
                                  + str(p2[1]) + ',' + str(p1[0]) + ',' \
-                                 + str(p1[1]) + ',' + str(p1[0]) + ',' \
+                                 + str(p2[1]) + ',' + str(p2[0]) + ',' \
                                  + str(p1[1]) + ',' + str(p2[0]) + ',' + label + '\n'
                     file.write(coordinate)
 

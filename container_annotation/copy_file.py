@@ -11,6 +11,7 @@
 -------------------------------------------------
 """
 import shutil
+import uuid
 
 from utility.file_path_utility import get_all_file_from_dir
 
@@ -19,8 +20,8 @@ from utility.file_path_utility import get_all_file_from_dir
 """
 __author__ = 'li'
 
-ORIGINAL_IMAGE_DIR_PATH = 'F:/dataset/container_dataset/tmp_image'
-NEW_IMAGE_DIR_PATH = 'F:/dataset/container_dataset/image/'
+ORIGINAL_IMAGE_DIR_PATH = 'F:/dataset/第二次标注图片\original_image/'
+NEW_IMAGE_DIR_PATH = 'F:/dataset/第二次标注图片/image/'
 
 
 def get_all_image_path():
@@ -43,7 +44,7 @@ def copy_image(images_path):
     :return:
     """
     for p in images_path:
-        file_name = p.split('\\')[-1]
+        file_name = p.split('\\')[-1].split('.')[0] + '.jpg'
         des_path = NEW_IMAGE_DIR_PATH + file_name
         shutil.copyfile(p, des_path)
 

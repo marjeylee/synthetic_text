@@ -23,9 +23,9 @@ __author__ = 'li'
 """
 extract text area
 """
-ANNOTATION_PATH = 'F:/dataset/container_dataset/annotation'
-IMAGE_PATH = 'F:/dataset/container_dataset/image/'
-TEXT_AREA_DIR_PATH = 'F:/dataset/container_dataset/text_area/'
+ANNOTATION_PATH = 'F:/dataset/second_label/label/'
+IMAGE_PATH = 'F:/dataset/second_label/image/'
+TEXT_AREA_DIR_PATH = 'F:/dataset/second_label/text_image/'
 
 
 def load_image_info():
