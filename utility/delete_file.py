@@ -20,12 +20,14 @@ __author__ = 'li'
 def delete_file_in_dir(dir_path):
     paths = get_all_file_from_dir(dir_path)
     for p in paths:
-        try:
-            os.remove(p)
-        except Exception as  e:
-            print(e)
+        os.remove(p)
+        # if p.find('DMG') >= 0 or p.find('.txt') >= 0:
+        #     try:
+        #         os.remove(p)
+        #     except Exception as  e:
+        #         print(e)
 
 
 if __name__ == '__main__':
-    dir_path = 'C:/Users\mar\Desktop\ocr'
+    dir_path = 'C:/Users\mar\Desktop\label/'
     delete_file_in_dir(dir_path)

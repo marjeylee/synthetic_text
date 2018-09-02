@@ -1,0 +1,37 @@
+<annotation>
+    <folder>H12220180709064913</folder>
+    <path>C:\Users\lgj\Desktop\桥吊照片\SQD\H12220180709064913\00f0e7fd-dd82-4a33-998f-b1892ebc0535.jpg</path>
+    <filename>00eeb32f-34aa-4805-a486-69ebe9b5835f.jpg</filename>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>1920</width>
+        <height>1080</height>
+        <depth>3</depth>
+    </size>
+    <object>
+        <name>undefined</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>829.0</xmin>
+            <ymin>208.0</ymin>
+            <xmax>841.0</xmax>
+            <ymax>283.0</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>undefined</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>830.0</xmin>
+            <ymin>163.0</ymin>
+            <xmax>841.0</xmax>
+            <ymax>220.0</ymax>
+        </bndbox>
+    </object>
+</annotation>
