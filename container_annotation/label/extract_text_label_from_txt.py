@@ -10,6 +10,7 @@
                    2018/7/29:
 -------------------------------------------------
 """
+import os
 import uuid
 
 import cv2
@@ -23,9 +24,9 @@ __author__ = 'li'
 """
 extract text area
 """
-ANNOTATION_PATH = 'F:\dataset/all_image\label/'
-IMAGE_PATH = 'F:\dataset/all_image\image/'
-TEXT_AREA_DIR_PATH = 'F:\dataset/all_image/text_area/'
+LABEL_DIR = 'F:\BaiduNetdiskDownload\label_txt/'
+IMAGE_PATH = 'F:\BaiduNetdiskDownload/uuid_image/'
+TEXT_AREA_DIR_PATH = 'F:\BaiduNetdiskDownload/text_area/'
 
 
 def load_image_info():
@@ -48,18 +49,17 @@ def clip_label_image(annotation_info, image_map):
     :param image_map:
     :return:
     """
-    for info in annotation_info:
-        name = info['image_name']
-        if 'region' not in info.keys():
+    for name in annotation_info.keys():
+        info = annotation_info[name]
+        if len(info) < 1:
             continue
-        region = info['region']
-        if region is None or len(region) == 0:
+        image_path = IMAGE_PATH + name + '.jpg'
+        if not os.path.exists(image_path):
             continue
-        image_path = IMAGE_PATH + name
         original_image = cv2.imread(image_path)
-        for r in region:
+        for r in info:
             try:
-                label = r['label']
+                label = r['label'].replace('\n', '').replace('@', '#').replace(' ', '#')
                 print(label)
                 p1 = r['p1']
                 p2 = r['p2']
@@ -71,10 +71,29 @@ def clip_label_image(annotation_info, image_map):
                 print(e)
 
 
+def load_seg_info():
+    txt_paths = get_all_file_from_dir(LABEL_DIR)
+    seg_info = {}
+    for p in txt_paths:
+        name = p.split('\\')[-1].split('.')[0]
+        region = []
+        with open(p, mode='r', encoding='utf8') as file:
+            lines = file.readlines()
+            for line in lines:
+                if len(line) > 5:
+                    columns = line.split(',')
+                    obj = {'p1': [columns[1], columns[0]], 'p2': [columns[5], columns[4]]
+                        , 'label': columns[8]}
+                    region.append(obj)
+        if len(region) > 0:
+            seg_info[name] = region
+    return seg_info
+
+
 def main():
-    annotation_info = load_annotation_info()
+    seg_info = load_seg_info()
     image_map = load_image_info()
-    clip_label_image(annotation_info, image_map)
+    clip_label_image(seg_info, image_map)
 
 
 if __name__ == '__main__':

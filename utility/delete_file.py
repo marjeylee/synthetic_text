@@ -29,5 +29,5 @@ def delete_file_in_dir(dir_path):
 
 
 if __name__ == '__main__':
-    dir_path = 'C:/Users\mar\Desktop\label/'
+    dir_path = 'F:\dataset\predict/'
     delete_file_in_dir(dir_path)
