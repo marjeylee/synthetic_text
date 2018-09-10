@@ -20,8 +20,8 @@ from utility.file_path_utility import get_all_file_from_dir
 """
 __author__ = 'li'
 
-ORIGINAL_IMAGE_DIR_PATH = 'F:\dataset/all_image/21/'
-NEW_IMAGE_DIR_PATH = 'F:\dataset/all_image\double_container_image/'
+ORIGINAL_IMAGE_DIR_PATH = 'F:\dataset\seg/6/'
+NEW_IMAGE_DIR_PATH = 'F:\dataset\seg/NUM/'
 
 
 def get_all_image_path():
@@ -45,8 +45,8 @@ def copy_image(images_path):
     """
     for p in images_path:
         file_name = p.split('\\')[-1].split('.')[0] + str(uuid.uuid4()) + '.jpg'
-        if file_name.find('DMG') > 0:
-            continue
+        # if file_name.find('DMG') > 0:
+        #     continue
         des_path = NEW_IMAGE_DIR_PATH + file_name
         shutil.copyfile(p, des_path)
 
