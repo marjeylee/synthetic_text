@@ -20,8 +20,8 @@ from utility.file_path_utility import get_all_file_from_dir
 """
 __author__ = 'li'
 
-ORIGINAL_IMAGE_DIR_PATH = 'F:\dataset/all_image/21/'
-NEW_IMAGE_DIR_PATH = 'F:\dataset/all_image\double_container_image/'
+ORIGINAL_IMAGE_DIR_PATH = 'D:\dataset/results/'
+NEW_IMAGE_DIR_PATH = 'D:\dataset\output/'
 
 
 def get_all_image_path():
@@ -32,7 +32,7 @@ def get_all_image_path():
     paths = get_all_file_from_dir(ORIGINAL_IMAGE_DIR_PATH)
     images_path = []
     for p in paths:
-        if p.find('.jpg') > 0:
+        if p.find('.png') > 0:
             images_path.append(p)
     return images_path
 
