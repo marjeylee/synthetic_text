@@ -20,7 +20,7 @@ __author__ = 'li'
 def delete_file_in_dir(dir_path):
     paths = get_all_file_from_dir(dir_path)
     for p in paths:
-        if p.find('DMG') >= 0:
+        if p.find('DMG') >= 0or p.find('.txt'):
             try:
                 os.remove(p)
             except Exception as  e:
@@ -29,5 +29,5 @@ def delete_file_in_dir(dir_path):
 
 
 if __name__ == '__main__':
-    dir_path = 'E:\BaiduNetdiskDownload\h122_08/'
+    dir_path = 'E:\BaiduNetdiskDownload\else/21/'
     delete_file_in_dir(dir_path)
