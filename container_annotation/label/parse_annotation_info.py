@@ -17,9 +17,9 @@ from xml.dom.minidom import parse
 slip label image from original image and annotation info 
 """
 __author__ = 'li'
-ANNOTATION_PATH = 'F:\dataset/all_image/annotation/'
-IMAGE_PATH = 'F:\dataset/all_image\image/'
-DETECTION_LABEL_PATH = 'F:\dataset/all_image\label/'
+ANNOTATION_PATH = 'F:\BaiduNetdiskDownload\label_txt/'
+IMAGE_PATH = 'F:\BaiduNetdiskDownload/uuid_image/'
+DETECTION_LABEL_PATH = 'F:\BaiduNetdiskDownload/text_area/'
 
 
 def get_unrelated_image():
@@ -48,7 +48,7 @@ def parse_xml_file(path):
     :return:
     """
     dom = parse(path)
-    image_name = str(dom.getElementsByTagName('path')[0].firstChild.data).split('\\')[-1]
+    image_name = str(dom.getElementsByTagName('filename')[0].firstChild.data)
     regions = dom.getElementsByTagName('object')
     obj = {'image_name': image_name}
     reg = []

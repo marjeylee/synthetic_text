@@ -17,9 +17,9 @@ from utility.file_path_utility import get_all_file_from_dir
 
 __author__ = 'li'
 
-IMAGE_DIR = 'F:/dataset/before_demo/detection/image/'
-LABEL_DIR = 'F:/dataset/before_demo/detection/label/'
-DES_DIR = 'F:/dataset/before_demo/detection/upload/'
+IMAGE_DIR = '/gpu_data/image/uuid_image/'
+LABEL_DIR = '/gpu_data/image/label_txt/'
+DES_DIR = '/gpu_data/code/EAST_ICPR-master/data/ICPR2018/'
 
 
 def load_image_info(dir):
@@ -31,7 +31,7 @@ def load_image_info(dir):
     image_paths = get_all_file_from_dir(dir)
     image_map = {}
     for p in image_paths:
-        name = p.split('\\')[-1].split('.')[0]
+        name = p.split('/')[-1].split('.')[0]
         image_map[name] = p
     return image_map
 
@@ -46,8 +46,10 @@ def main():
         txt_path = txt_map[k]
         file_size = os.path.getsize(txt_path)
         if file_size <= 0:
+            print('size = 0')
             continue
         if k not in image_map.keys():
+            print('not in ')
             continue
         img_path = image_map[k]
         shutil.copyfile(txt_path, DES_DIR + 'img_' + str(index) + '.txt')
