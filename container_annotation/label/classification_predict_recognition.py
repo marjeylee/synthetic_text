@@ -15,8 +15,8 @@ import shutil
 
 from utility.file_path_utility import get_all_files_under_directory, create_dir
 
-ORIGINAL_PATH = 'F:\dataset/combine_text_area/'
-DESTINATION_PATH = 'F:\dataset\seg/'
+ORIGINAL_PATH = 'E:\dataset\predict/'
+DESTINATION_PATH = 'E:\dataset\seg/'
 
 
 def classification_images():
@@ -38,9 +38,9 @@ def classification_images():
             label = str(length) + '/' + label
         new_path = os.path.join(DESTINATION_PATH, label)
         create_dir(new_path)
-        if label[0] == '4':
-            des_path = os.path.join(new_path, image_name)
-            shutil.copy(p, des_path)
+        # if label[0] == '4':
+        des_path = os.path.join(new_path, image_name)
+        shutil.copy(p, des_path)
 
 
 if __name__ == '__main__':
