@@ -18,18 +18,23 @@ import cv2
 from utility.file_path_utility import get_all_files_under_directory
 import numpy as np
 
-ORIGINAL_PATH = 'E:\dataset\seg/'
+ORIGINAL_PATH = 'E:\dataset/text_area/text_area/'
 BLACK_PATH = 'E:\dataset/black/'
 
 
 def get_black_images():
     images_path = get_all_files_under_directory(ORIGINAL_PATH)
     for p in images_path:
-        img = cv2.imread(p)
-        mean = np.mean(np.mean(img, axis=0), axis=0)
-        if mean[0] < 35 and mean[1] < 35 and mean[2] < 35:
+        try:
+            img = cv2.imread(p)
+            mean = np.mean(np.mean(img, axis=0), axis=0)
+            if mean[0] < 35 and mean[1] < 35 and mean[2] < 35:
+                _, file_name = os.path.split(p)
+                print(file_name)
+                shutil.move(p, BLACK_PATH + file_name)
+        except Exception as e:
+            print(e)
             print(p)
-            os.remove(p)
 
 
 if __name__ == '__main__':

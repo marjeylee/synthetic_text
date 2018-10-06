@@ -20,16 +20,17 @@ __author__ = 'li'
 def delete_file_in_dir(dir_path):
     paths = get_all_file_from_dir(dir_path)
     for p in paths:
-        if p.find('DMG') >= 0 or p.find('.txt') >= 0:
-            try:
-                print(p)
-                os.remove(p)
-            except Exception as  e:
-                print(e)
-        subdir_path, _ = os.path.split(p)
-        # os.removedirs(subdir_path)
+        os.remove(p)
+        # if p.find('DMG') >= 0 or p.find('.txt') >= 0:
+        #     try:
+        #         print(p)
+        #
+        #     except Exception as  e:
+        #         print(e)
+        # subdir_path, _ = os.path.split(p)
+    # os.removedirs(dir_path)
 
 
 if __name__ == '__main__':
-    dir_path = 'E:\BaiduNetdiskDownload\h122/'
+    dir_path = 'E:\dataset/text_area/test_area/'
     delete_file_in_dir(dir_path)

@@ -17,7 +17,7 @@ from utility.file_path_utility import get_all_file_from_dir
 
 __author__ = 'li'
 
-PARENT_DIR_PATH = 'F:\dataset\seg/3'
+PARENT_DIR_PATH = 'E:\dataset/new_seg/4'
 
 
 def delete_4():
@@ -26,23 +26,26 @@ def delete_4():
             sub_dir = os.path.join(dirpath, d)
 
             files = get_all_file_from_dir(sub_dir)
-            if len(files) == 0:
+            if len(files) <= 2:
                 delete_file_in_dir(sub_dir)
                 print('delete' + sub_dir)
                 continue
-            _, image_name = os.path.split(files[0])
-            if len(files) <= 3 and 'A' <= image_name[0] <= 'Z' and '0' <= image_name[2] <= '9':
-                delete_file_in_dir(sub_dir)
-                print('delete' + sub_dir)
-                continue
-            elif len(files) <= 3 and '0' <= image_name[0] <= '9' and 'A' <= image_name[3] <= 'Z':
-                delete_file_in_dir(sub_dir)
-                print('delete' + sub_dir)
-                continue
-            elif image_name.split('-')[0].isdigit():
-                delete_file_in_dir(sub_dir)
-                print('delete' + sub_dir)
-                continue
+            # _, image_name = os.path.split(files[0])
+            # label = image_name.split('-')[-1].split('.')[0]
+            #
+            # if len(files) <= 3 and label.isdigit():
+            #     delete_file_in_dir(sub_dir)
+            #     print('delete' + sub_dir)
+            #     continue
+            #
+            # if len(files) <= 3 and 'A' <= label[0] <= 'Z' and '0' <= label[2] <= '9':
+            #     delete_file_in_dir(sub_dir)
+            #     print('delete' + sub_dir)
+            #     continue
+            # if len(files) <= 3 and '0' <= label[0] <= '9' and '0' <= label[1] <= '9':
+            #     delete_file_in_dir(sub_dir)
+            #     print('delete' + sub_dir)
+            #     continue
 
 
 def delete_6():
