@@ -17,8 +17,8 @@ import uuid
 
 from utility.file_path_utility import get_all_file_from_dir
 
-IMAGE_LABEL_DIR = 'E:\dataset\detection_2018-9-27\ICPR2018'
-JSON_LABEL_DIR = 'E:\dataset\detection\json_label/'
+IMAGE_LABEL_DIR = 'C:/Users\lr\Desktop/traing_data/1/'
+JSON_LABEL_DIR = 'C:/Users\lr\Desktop\json_/'
 
 
 def get_mapping(files_path, file_type):
@@ -70,6 +70,7 @@ if __name__ == '__main__':
     image_mapping = get_mapping(paths, file_type='jpg')
     txt_mapping = get_mapping(paths, file_type='txt')
     txt_mapping_keys = txt_mapping.keys()
+    index = 1
     for key in image_mapping.keys():
         if key in txt_mapping_keys:
             shapes = load_shapes(txt_mapping[key])
@@ -85,6 +86,7 @@ if __name__ == '__main__':
             json_str = json.dumps(json_obj)
             json_str = json_str.replace('b\'', '')
             json_str = json_str.replace('\'', '')
-            p = JSON_LABEL_DIR + str(key) + '.json'
+            p = JSON_LABEL_DIR + str(index) + '.json'
+            index = index + 1
             with open(p, mode='w', encoding='utf8') as file:
                 file.write(json_str)

@@ -17,7 +17,7 @@ from utility.file_path_utility import get_all_file_from_dir
 
 __author__ = 'li'
 
-PARENT_DIR_PATH = 'E:\dataset/new_seg/4'
+PARENT_DIR_PATH = 'C:/Users\lr\Desktop\class/6'
 
 
 def delete_4():
@@ -53,12 +53,20 @@ def delete_6():
         for d in dirnames:
             sub_dir = os.path.join(dirpath, d)
             files = get_all_file_from_dir(sub_dir)
+            if len(files) == 0:
+                delete_file_in_dir(sub_dir)
+                print('delete' + sub_dir)
+                continue
             _, image_name = os.path.split(files[0])
             is_delete = False
             for c in 'QWERTYUIOPLKJHGFDSAZXCVBNM':
                 if image_name.find(c) >= 0:
                     is_delete = True
                     break
+            if len(files) > 2:
+                delete_file_in_dir(sub_dir)
+                print('delete' + sub_dir)
+                continue
             if is_delete:
                 if len(files) == 1:
                     print('delete' + sub_dir)
@@ -66,8 +74,8 @@ def delete_6():
 
 
 def main():
-    delete_4()
-    # delete_6()
+    # delete_4()
+    delete_6()
 
 
 if __name__ == '__main__':

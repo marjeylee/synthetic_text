@@ -19,8 +19,11 @@ __author__ = 'li'
 
 def delete_file_in_dir(dir_path):
     paths = get_all_file_from_dir(dir_path)
+
     for p in paths:
         os.remove(p)
+        # print(p)
+
         # if p.find('DMG') >= 0 or p.find('.txt') >= 0:
         #     try:
         #         print(p)
@@ -32,5 +35,5 @@ def delete_file_in_dir(dir_path):
 
 
 if __name__ == '__main__':
-    dir_path = 'E:\dataset/text_area/test_area/'
+    dir_path = 'E:\dataset/text_area/to_check/'
     delete_file_in_dir(dir_path)

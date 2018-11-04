@@ -16,8 +16,8 @@ import uuid
 
 from utility.file_path_utility import get_all_files_under_directory, create_dir
 
-ORIGINAL_PATH = 'E:\dataset/text_area\horizontal/'
-DESTINATION_PATH = 'E:\dataset/text_area\horizontal_classify/'
+ORIGINAL_PATH = 'D:\dataset\img_/'
+DESTINATION_PATH = 'E:\dataset/text_area/to_check/'
 
 
 def classification_images():
