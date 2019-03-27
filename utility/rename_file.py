@@ -35,11 +35,17 @@ def get_all_file_from_dir(path_dir):
 
 __author__ = 'li'
 if __name__ == '__main__':
-    path = '/gpu_data/image'
-    des_dir_path = '/gpu_data/image/uuid_image/'
+    path = 'C:/Users\lr\Desktop/to_check'
+    des_dir_path = 'C:/Users\lr\Desktop/rename/'
     paths = get_all_file_from_dir(path)
     for p in paths:
-        dir_path, name = os.path.split(p)
-        des_path = des_dir_path + str(uuid.uuid4()) + '.jpg'
-        print(des_path)
-        shutil.copyfile(p, des_path)
+        try:
+            dir_path, name = os.path.split(p)
+            label = name.split('-')[1].split('.')[0]
+            if len(label) > 7:
+                continue
+            des_path = des_dir_path + label + '----' + str(uuid.uuid4()) + '.jpg'
+            print(des_path)
+            shutil.copyfile(p, des_path)
+        except Exception as e:
+            print(e)

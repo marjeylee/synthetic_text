@@ -17,9 +17,9 @@ from xml.dom.minidom import parse
 slip label image from original image and annotation info 
 """
 __author__ = 'li'
-ANNOTATION_PATH = 'F:\BaiduNetdiskDownload\label_txt/'
-IMAGE_PATH = 'F:\BaiduNetdiskDownload/uuid_image/'
-DETECTION_LABEL_PATH = 'F:\BaiduNetdiskDownload/text_area/'
+ANNOTATION_PATH = 'D:\dataset/xml/'
+IMAGE_PATH = 'D:\dataset\d/'
+DETECTION_LABEL_PATH = 'D:\dataset\des/'
 
 
 def get_unrelated_image():

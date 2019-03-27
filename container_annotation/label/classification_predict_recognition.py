@@ -16,8 +16,8 @@ import uuid
 
 from utility.file_path_utility import get_all_files_under_directory, create_dir
 
-ORIGINAL_PATH = 'D:\dataset\img_/'
-DESTINATION_PATH = 'E:\dataset/text_area/to_check/'
+ORIGINAL_PATH = 'E:\dataset\wrong\\1/'
+DESTINATION_PATH = 'E:\dataset\wrong\class/'
 
 
 def classification_images():
@@ -42,7 +42,7 @@ def classification_images():
         image_name = label + '-' + str(uuid.uuid4()) + '.jpg'
         des_path = os.path.join(new_path, image_name)
         # if len(label) == 4:
-        shutil.copy(p, des_path)
+        shutil.move(p, des_path)
 
 
 if __name__ == '__main__':

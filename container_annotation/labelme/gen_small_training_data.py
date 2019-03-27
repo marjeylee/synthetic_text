@@ -15,13 +15,15 @@ import json
 import math
 import os
 
+import cv2
+
 from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
-import numpy as np
 
 JSON_DIR = 'D:\dataset\label_result\single_container/npy/'
-TRAINING_DATA_DIR = 'D:\dataset\label_result\single_container/tr/'
+TRAINING_DATA_DIR = 'D:\dataset\label_result\single_container\small/'
 create_dir(TRAINING_DATA_DIR)
+import numpy as np
 
 
 def save_image(image_str, i, file_name):
@@ -29,6 +31,10 @@ def save_image(image_str, i, file_name):
     fh = open(image_path, "wb")
     fh.write(base64.b64decode(image_str))
     fh.close()
+    img = cv2.imread(image_path)
+    shape = img.shape
+    img = cv2.resize(img, (int(shape[1] * 0.8), int(shape[0] * 0.8)))
+    cv2.imwrite(image_path, img)
     # image_path = TRAINING_DATA_DIR + 'img_' + str(i + 1) + '.jpg'
     # fh = open(image_path, "wb")
     # fh.write(base64.b64decode(image_str))
@@ -153,7 +159,7 @@ def save_txt(shapes, i, file_name):
             points = resort_points(points)
             line = ''
             for point in points:
-                line = line + str(point[0]) + ',' + str(point[1]) + ','
+                line = line + str(int(point[0] * 0.8)) + ',' + str(int(point[1] * 0.8)) + ','
             line += label + '\n'
             file.write(line)
 

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-   File Name：     copy_delete
+   File Name：     get_delete
    Description :
    Author :       'li'
-   date：          2018/10/23
+   date：          2018/11/7
 -------------------------------------------------
    Change Activity:
-                   2018/10/23:
+                   2018/11/7:
 -------------------------------------------------
 """
 import os
@@ -15,8 +15,9 @@ import shutil
 
 from utility.file_path_utility import get_all_file_from_dir
 
-ALL_PATH = 'D:\dataset/xiangzu'
-DELETE_PATH = 'D:\dataset\lines'
+p2 = 'E:/tmp/res'
+p1 = 'E:/tmp/to'  # all
+left = 'E:/tmp\left/'
 
 
 def get_mapping(files_path, file_type='jpg'):
@@ -35,9 +36,23 @@ def get_mapping(files_path, file_type='jpg'):
     return mapping
 
 
-DES_PATH = 'D:\dataset\d/'
-all_map = get_mapping(ALL_PATH)
-delete_map = get_mapping(DELETE_PATH).keys()
-for p in all_map:
-    if p not in delete_map:
-        shutil.copy(all_map[p], DES_PATH + p + '.jpg')
+def main():
+    p1_paths = get_mapping(p1)
+    p2_paths = get_mapping(p2)
+    p1_keys = set(p1_paths.keys())
+    p2_keys = set(p2_paths.keys())
+    name_json = []
+    for name in p1_keys:
+        if name in p2_keys:
+            continue
+        path = p1_paths[name]
+        _, name = os.path.split(path)
+        name_json.append(name)
+        des_path = left + name
+        # shutil.copy(path, des_path)
+
+    print(name_json)
+
+
+if __name__ == '__main__':
+    main()

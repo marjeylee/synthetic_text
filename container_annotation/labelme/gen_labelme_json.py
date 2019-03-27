@@ -17,8 +17,8 @@ import uuid
 
 from utility.file_path_utility import get_all_file_from_dir
 
-IMAGE_LABEL_DIR = 'C:/Users\lr\Desktop/traing_data/1/'
-JSON_LABEL_DIR = 'C:/Users\lr\Desktop\json_/'
+IMAGE_LABEL_DIR = 'C:/Users\lr\Desktop/12312312/'
+JSON_LABEL_DIR = 'C:/Users\lr\Desktop\lib/'
 
 
 def get_mapping(files_path, file_type):
@@ -32,7 +32,7 @@ def get_mapping(files_path, file_type):
     for p in files_path:
         if p.find(file_type) >= 0:
             _, name = os.path.split(p)
-            mapping[name.split('.')[0]] = p
+            mapping[name.split('.')[0].replace('res_', '')] = p
     return mapping
 
 
@@ -51,8 +51,12 @@ def load_shapes(txt_path):
             points = l.split(',')
             x1, y1, x2, y2 = int(points[0]), int(points[1]), int(points[4]), int(points[5])
             shape = {"label": "dsada", "line_color": None, "fill_color": None,
-                     "points": [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
+                     "points": [[int(points[0]), int(points[1])], [int(points[2]), int(points[3])],
+                                [int(points[4]), int(points[5])], [int(points[6]), int(points[7])]]
                      }
+            # shape = {"label": "dsada", "line_color": None, "fill_color": None,
+            #          "points": [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
+            #          }
             shapes.append(shape)
         return shapes
 
@@ -86,7 +90,7 @@ if __name__ == '__main__':
             json_str = json.dumps(json_obj)
             json_str = json_str.replace('b\'', '')
             json_str = json_str.replace('\'', '')
-            p = JSON_LABEL_DIR + str(index) + '.json'
+            p = JSON_LABEL_DIR + str(key) + '.json'
             index = index + 1
             with open(p, mode='w', encoding='utf8') as file:
                 file.write(json_str)

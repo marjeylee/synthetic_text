@@ -10,17 +10,17 @@
                    2018/8/6:
 -------------------------------------------------
 """
+import os
 import shutil
 
 from utility.file_path_utility import get_all_file_from_dir
 
-__author__ = 'li'
-
-dir_path = 'C:/Users/mar/Desktop/predict/'
-des_path = 'C:/Users/mar/Desktop/tmp/'
+dir_path = 'E:\dataset\\11-25\horizontal/'
+des_path = 'C:\\Users\lr\Desktop\small/'
 paths = get_all_file_from_dir(dir_path)
 for path in paths:
-    name = path.split('\\')[-1].split('-')[0]
-    if len(name) == 2:
-        new_path = path.replace('predict', 'tmp')
-        shutil.move(path, new_path)
+    size = os.path.getsize(path)
+    if size < 700:
+        print(path)
+        _, file_name = os.path.split(path)
+        shutil.move(path, des_path + file_name)

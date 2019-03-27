@@ -17,24 +17,21 @@ from utility.file_path_utility import get_all_file_from_dir
 
 __author__ = 'li'
 
-PARENT_DIR_PATH = 'F:\dataset\seg/6'
+PARENT_DIR_PATH = 'E:\dataset\\11-28\horizontal\p321'
 
-DES_PATH = 'F:\dataset\seg\dup/'
+DES_PATH = 'E:\dataset\\11-28\horizontal\\true/'
 
 
 def delete_6():
-    for dirpath, dirnames, filenames in os.walk(PARENT_DIR_PATH):
-        for d in dirnames:
-            sub_dir = os.path.join(dirpath, d)
-            files = get_all_file_from_dir(sub_dir)
-            if len(files) >= 1:
-                diractory = ''
-                for f in files:
-                    diractory, name = os.path.split(f)
-                    des_p = os.path.join(DES_PATH, name)
-                    shutil.move(f, des_p)
-                    print(f)
-                os.removedirs(diractory)
+    files = get_all_file_from_dir(PARENT_DIR_PATH)
+    for path in files:
+        _, file_name = os.path.split(path)
+        ls = file_name.split('-')
+        tr_label = ls[0]
+        label = ls[1]
+        re_label = tr_label.replace('O', '0')
+        if re_label == label:
+            shutil.move(path, DES_PATH + file_name)
 
 
 def main():

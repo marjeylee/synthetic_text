@@ -18,10 +18,9 @@ import cv2
 from utility.file_path_utility import get_all_files_under_directory
 import numpy as np
 
-ORIGINAL_PATH = 'C:/Users\lr\Desktop\class/'
+ORIGINAL_PATH = 'C:\\Users\lr\Desktop\\black/'
 
-
-# BLACK_PATH = 'E:\dataset/black/'
+BLACK_PATH = 'C:/Users\lr\Desktop/b1/'
 
 
 def get_black_images():
@@ -30,11 +29,11 @@ def get_black_images():
         try:
             img = cv2.imread(p)
             mean = np.mean(np.mean(img, axis=0), axis=0)
-            if mean[0] < 35 and mean[1] < 35 and mean[2] < 35:
+            if mean[0] < 40 and mean[1] < 40 and mean[2] < 40:
                 _, file_name = os.path.split(p)
                 print(file_name)
-                os.remove(p)
-                # shutil.move(p, BLACK_PATH + file_name)
+                # os.remove(p)
+                shutil.move(p, BLACK_PATH + file_name)
         except Exception as e:
             print(e)
             print(p)
