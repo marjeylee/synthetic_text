@@ -11,13 +11,20 @@
 -------------------------------------------------
 """
 import base64
+import copy
 import json
 import os
+import uuid
+import numpy as np
+import cv2
 
+from container_annotation.labelme.gen_text_area_from_points import get_new_bg_from_points
+from container_annotation.labelme.sort_point import resort_points, get_rotate_img
+from delete import get_uuid_str
 from utility.file_path_utility import get_all_file_from_dir
 
-IMAGE_LABEL_DIR = 'C:/Users/lr/Desktop/new/left/'
-JSON_LABEL_DIR = 'C:/Users/lr/Desktop/new/json/'
+IMAGE_LABEL_DIR = 'D:/data/danzheng/txt/'
+JSON_LABEL_DIR = 'C:/Users/lr/Desktop/area/'
 
 
 def get_mapping(files_path, file_type):
@@ -35,7 +42,7 @@ def get_mapping(files_path, file_type):
     return mapping
 
 
-def load_shapes(txt_path):
+def load_shapes(txt_path, image_path):
     """
     load point to shape
     :param txt_path:
@@ -45,19 +52,22 @@ def load_shapes(txt_path):
         lines = file.readlines()
         if len(lines) == 0:
             return []
-        shapes = []
+        image = cv2.imread(image_path)
+        txt_name = os.path.split(txt_path)[1].split('.')[0]
         for l in lines:
             points = l.split(',')
-            x1, y1, x2, y2 = int(points[0]), int(points[1]), int(points[4]), int(points[5])
-            shape = {"label": "dsada", "line_color": None, "fill_color": None,
-                     "points": [[int(points[0]), int(points[1])], [int(points[2]), int(points[3])],
-                                [int(points[4]), int(points[5])], [int(points[6]), int(points[7])]]
-                     }
-            # shape = {"label": "dsada", "line_color": None, "fill_color": None,
-            #          "points": [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
-            #          }
-            shapes.append(shape)
-        return shapes
+            points = [[int(points[0]), int(points[1])], [int(points[2]), int(points[3])],
+                      [int(points[4]), int(points[5])], [int(points[6]), int(points[7])]]
+            points = resort_points(points)
+            tmp_image = copy.deepcopy(image)
+            tmp_image = get_new_bg_from_points(tmp_image, points)
+            cnt = np.array(points)
+            rect = cv2.minAreaRect(cnt)  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
+            box = cv2.boxPoints(rect)  # cv2.boxPoints(rect) for OpenCV 3.x 获取最小外接矩形的4个顶点
+            box = np.int0(box).tolist()
+            points = resort_points(box)
+            area = get_rotate_img(tmp_image, points[0], points[1], points[2], points[3])
+            cv2.imwrite('C:/Users/lr/Desktop/area/' + str(txt_name) + '--' + get_uuid_str() + '.jpg', area)
 
 
 def load_image_str(image_path):
@@ -76,20 +86,4 @@ if __name__ == '__main__':
     index = 1
     for key in image_mapping.keys():
         if key in txt_mapping_keys:
-            shapes = load_shapes(txt_mapping[key])
-            image_str = load_image_str(image_mapping[key])
-            json_obj = {
-                "flags": {},
-                "shapes": shapes,
-                "lineColor": [0, 255, 0, 128],
-                "fillColor": [255, 0, 0, 128],
-                "imagePath": "",
-                "imageData": image_str
-            }
-            json_str = json.dumps(json_obj)
-            json_str = json_str.replace('b\'', '')
-            json_str = json_str.replace('\'', '')
-            p = JSON_LABEL_DIR + str(key) + '.json'
-            index = index + 1
-            with open(p, mode='w', encoding='utf8') as file:
-                file.write(json_str)
+            shapes = load_shapes(txt_mapping[key], image_mapping[key])

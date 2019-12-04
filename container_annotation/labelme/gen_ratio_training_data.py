@@ -17,23 +17,27 @@ import os
 
 import cv2
 
+from chinese_project.move_file.rename_file_md5 import GetFileMd5
 from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
-
-JSON_DIR = 'D:\dataset\label_result\single_container/npy/'
-TRAINING_DATA_DIR = 'D:\dataset\label_result\single_container\small/'
-create_dir(TRAINING_DATA_DIR)
 import numpy as np
+
+JSON_DIR = 'C:/Users/lr/Desktop/new/check/'
+TRAINING_DATA_DIR = 'C:/Users/lr/Desktop/new/txt/'
+create_dir(TRAINING_DATA_DIR)
+
+enlarge_radio = 1
 
 
 def save_image(image_str, i, file_name):
-    image_path = TRAINING_DATA_DIR + file_name + '.jpg'
+    image_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + \
+                 str(enlarge_radio).replace('.', '_') + '.jpg'
     fh = open(image_path, "wb")
     fh.write(base64.b64decode(image_str))
     fh.close()
     img = cv2.imread(image_path)
     shape = img.shape
-    img = cv2.resize(img, (int(shape[1] * 0.8), int(shape[0] * 0.8)))
+    img = cv2.resize(img, (int(shape[1] * enlarge_radio), int(shape[0] * enlarge_radio)))
     cv2.imwrite(image_path, img)
     # image_path = TRAINING_DATA_DIR + 'img_' + str(i + 1) + '.jpg'
     # fh = open(image_path, "wb")
@@ -148,7 +152,8 @@ def resort_points(points):
 
 
 def save_txt(shapes, i, file_name):
-    txt_path = TRAINING_DATA_DIR + file_name + '.txt'
+    txt_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + \
+               str(enlarge_radio).replace('.', '_') + '.txt'
     # txt_path = TRAINING_DATA_DIR + 'img_' + str(i + 1) + '.txt'
     with open(txt_path, mode='w', encoding='utf8')as file:
         for shape in shapes:
@@ -159,25 +164,36 @@ def save_txt(shapes, i, file_name):
             points = resort_points(points)
             line = ''
             for point in points:
-                line = line + str(int(point[0] * 0.8)) + ',' + str(int(point[1] * 0.8)) + ','
+                line = line + str(int(point[0] * enlarge_radio)) + ',' + str(int(point[1] * enlarge_radio)) + ','
             line += label + '\n'
             file.write(line)
+
+
+def get_file_name(image_str):
+    image_path = 'tmp.jpg'
+    fh = open(image_path, "wb")
+    fh.write(base64.b64decode(image_str))
+    fh.close()
+    md5 = GetFileMd5(image_path)
+    os.remove(image_path)
+    return md5
 
 
 def main():
     paths = get_all_file_from_dir(JSON_DIR)
     try:
         for i, p in enumerate(paths):
-            # if i != 117:
-            #     continue
             print(i)
-            print(p)
-            _, file_name = os.path.split(p)
+            if i < 0:
+                continue
             content = read_all_content(p)
             obj = json.loads(content)
+            file_name = os.path.split(p)[1].split('.')[0]
+            # file_name = get_file_name(obj['imageData'])
             save_image(obj['imageData'], i, file_name)
             save_txt(obj['shapes'], i, file_name)
-    except Exception as  e:
+    except Exception as e:
+        print(p)
         print(e)
 
 

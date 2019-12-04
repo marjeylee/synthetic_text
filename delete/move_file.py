@@ -13,30 +13,35 @@
 import os
 import shutil
 
-from utility.file_path_utility import get_all_file_from_dir
+from utility.file_path_utility import get_all_file_from_dir, get_all_files_under_directory
 
 __author__ = 'li'
 
-PARENT_DIR_PATH = 'E:\dataset\\11-28\horizontal\p321'
+DELETE_PATH = 'G:/line/'
+PARENT_DIR_PATH = 'D:/image/tmp/'
+DES_PATH = 'G:/des/'
 
-DES_PATH = 'E:\dataset\\11-28\horizontal\\true/'
 
-
-def delete_6():
-    files = get_all_file_from_dir(PARENT_DIR_PATH)
-    for path in files:
-        _, file_name = os.path.split(path)
-        ls = file_name.split('-')
-        tr_label = ls[0]
-        label = ls[1]
-        re_label = tr_label.replace('O', '0')
-        if re_label == label:
-            shutil.move(path, DES_PATH + file_name)
+def get_key(all_paths):
+    keys = set()
+    for path in all_paths:
+        _, name = os.path.split(path)
+        key = name.split('.')[0]
+        keys.add(key)
+    return keys
 
 
 def main():
-    delete_6()
-    # delete_6()
+    all_paths = get_all_files_under_directory(PARENT_DIR_PATH)
+    delete_paths = get_all_files_under_directory(DELETE_PATH)
+    all_keys = get_key(all_paths)
+    delete_keys = get_key(delete_paths)
+    index = 0
+    for key in all_keys:
+        if key not in delete_keys:
+            print(key)
+            shutil.copy(PARENT_DIR_PATH + key + '.jpg', DES_PATH + str(index) + '_' + key + '.jpg')
+            index = index + 1
 
 
 if __name__ == '__main__':

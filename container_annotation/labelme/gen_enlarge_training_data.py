@@ -15,12 +15,15 @@ import json
 import math
 import os
 
+import cv2
+
 from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-JSON_DIR = 'D:\dataset\label_result\single_container/npy/'
-TRAINING_DATA_DIR = 'D:\dataset\label_result\single_container/tr/'
+
+JSON_DIR = 'D:/label_result/label_result/car_number/json/'
+TRAINING_DATA_DIR = 'D:/label_result/label_result/car_number/txt/'
 create_dir(TRAINING_DATA_DIR)
 
 
@@ -29,6 +32,16 @@ def save_image(image_str, i, file_name):
     fh = open(image_path, "wb")
     fh.write(base64.b64decode(image_str))
     fh.close()
+    img = cv2.imread(image_path)
+    shape = img.shape
+    new_width, new_height = 512, 512
+    if shape[0] > new_height:
+        new_height = shape[0]
+    if shape[1] > new_width:
+        new_width = shape[1]
+    bg = np.ones(shape=(new_height, new_width, 3)) * 255
+    bg[0:shape[0], 0:shape[1], :] = img
+    cv2.imwrite(image_path, bg)
     # image_path = TRAINING_DATA_DIR + 'img_' + str(i + 1) + '.jpg'
     # fh = open(image_path, "wb")
     # fh.write(base64.b64decode(image_str))
@@ -153,26 +166,24 @@ def save_txt(shapes, i, file_name):
             points = resort_points(points)
             line = ''
             for point in points:
-                line = line + str(point[0]) + ',' + str(point[1]) + ','
-            line += label + '\n'
+                line = line + str(int(point[0])) + ',' + str(int(point[1])) + ','
+            line += label + '/n'
             file.write(line)
 
 
 def main():
     paths = get_all_file_from_dir(JSON_DIR)
-    try:
-        for i, p in enumerate(paths):
-            # if i != 117:
-            #     continue
-            print(i)
-            print(p)
-            _, file_name = os.path.split(p)
-            content = read_all_content(p)
-            obj = json.loads(content)
-            save_image(obj['imageData'], i, file_name)
-            save_txt(obj['shapes'], i, file_name)
-    except Exception as  e:
-        print(e)
+    for i, p in enumerate(paths):
+        # if i != 117:
+        #     continue
+        print(i)
+        print(p)
+        _, file_name = os.path.split(p)
+        print(file_name)
+        content = read_all_content(p)
+        obj = json.loads(content)
+        save_image(obj['imageData'], i, file_name)
+        save_txt(obj['shapes'], i, file_name)
 
 
 if __name__ == '__main__':

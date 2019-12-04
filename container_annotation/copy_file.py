@@ -10,9 +10,10 @@
                    2018/7/29:
 -------------------------------------------------
 """
+import hashlib
+
 import os
 import shutil
-import uuid
 
 
 def get_all_file_from_dir(path_dir):
@@ -38,8 +39,8 @@ def get_all_file_from_dir(path_dir):
 """
 __author__ = 'li'
 
-ORIGINAL_IMAGE_DIR_PATH = '/data/data/json/new_xiangzu/'
-NEW_IMAGE_DIR_PATH = '/data/data/json/new_xiangzu/'
+ORIGINAL_IMAGE_DIR_PATH = 'D:/image/container_num/shanggang/'
+NEW_IMAGE_DIR_PATH = 'D:/image/container_num/shanggang_md5/'
 
 
 def get_all_image_path():
@@ -55,6 +56,20 @@ def get_all_image_path():
     return images_path
 
 
+def GetFileMd5(filename):
+    if not os.path.isfile(filename):
+        return
+    myhash = hashlib.md5()
+    f = open(filename, 'rb')
+    while True:
+        b = f.read(8096)
+        if not b:
+            break
+        myhash.update(b)
+    f.close()
+    return str(myhash.hexdigest())
+
+
 def copy_image(images_path):
     """
     copy imagesr
@@ -62,19 +77,14 @@ def copy_image(images_path):
     :return:
     """
     for index, p in enumerate(images_path):
-        print(index)
-        new_path = NEW_IMAGE_DIR_PATH + 'xiangzu-' + str(uuid.uuid4()) + '.npy'
-        shutil.move(p, new_path)
-        # _, file_name = os.path.split(p)
-        # if 'jpg' not in file_name:
-        #     continue
-        # img = cv2.imread(p)
-        # print(p)
-        # shape = img.shape
-        # if shape[0] == 1080 and shape[1] == 1920:
-        #     print(index)
-        #     des_path = NEW_IMAGE_DIR_PATH + str(index) + '--' + str(uuid.uuid4()) + '.jpg'
-        #     shutil.copy(p, des_path)
+        # print(index)
+        # new_path = NEW_IMAGE_DIR_PATH + 'xiangzu-' + str(uuid.uuid4()) + '.npy'
+        # shutil.move(p, new_path)
+        print(p)
+        _, file_name = os.path.split(p)
+        # file_name = GetFileMd5(p)
+        des_path = NEW_IMAGE_DIR_PATH + str(file_name)
+        shutil.copy(p, des_path)
 
 
 def main():

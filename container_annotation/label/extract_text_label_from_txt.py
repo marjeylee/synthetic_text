@@ -24,9 +24,9 @@ __author__ = 'li'
 """
 extract text area
 """
-LABEL_DIR = 'F:\BaiduNetdiskDownload\label_txt/'
-IMAGE_PATH = 'F:\BaiduNetdiskDownload/uuid_image/'
-TEXT_AREA_DIR_PATH = 'F:\BaiduNetdiskDownload/text_area/'
+LABEL_DIR = 'C:/Users/lr/Desktop/txt/'
+IMAGE_PATH = 'C:/Users/lr/Desktop/image/'
+TEXT_AREA_DIR_PATH = 'C:/Users/lr/Desktop/txt_inage/'
 
 
 def load_image_info():

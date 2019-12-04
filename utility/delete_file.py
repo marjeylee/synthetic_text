@@ -11,8 +11,9 @@
 -------------------------------------------------
 """
 import os
+import shutil
 
-from utility.file_path_utility import get_all_file_from_dir
+from utility.rename_file import get_all_file_from_dir
 
 __author__ = 'li'
 
@@ -21,21 +22,15 @@ def delete_file_in_dir(dir_path):
     paths = get_all_file_from_dir(dir_path)
 
     for index, p in enumerate(paths):
-        if index % 10000 == 0:
-            print(index)
-        os.remove(p)
-        # print(p)
-
-        # if p.find('DMG') >= 0 or p.find('.txt') >= 0:
-        #     try:
-        #         print(p)
-        #
-        #     except Exception as  e:
-        #         print(e)
-        # subdir_path, _ = os.path.split(p)
-        # os.removedirs(dir_path)
+        try:
+            if index % 1000 == 0:
+                print(index)
+            os.remove(p)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':
-    dir_path = 'D:\BaiduNetdiskDownload\jadite/breed_classify'
-    delete_file_in_dir(dir_path)
+    dir_path ='D:/image/container_num/shanggang/'
+    shutil.rmtree(dir_path)
+    # delete_file_in_dir(dir_path)
