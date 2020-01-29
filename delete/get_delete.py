@@ -15,10 +15,10 @@ import shutil
 
 from utility.file_path_utility import get_all_file_from_dir
 
-p2 = 'C:/Users/lr/Desktop/new/dele/'
-p1 = 'C:/Users/lr/Desktop/new/wrong/'  # all
-left = 'C:/Users/lr/Desktop/new/left/'
-org_dir = 'C:/Users/lr/Desktop/new/wrong/'
+p2 = 'J:/BaiduNetdiskDownload/dangerous_goods_detection/delete/'
+p1 = 'J:/BaiduNetdiskDownload/dangerous_goods_detection/all/'  # all
+left = 'J:/BaiduNetdiskDownload/dangerous_goods_detection/left/'
+org_dir = 'J:/BaiduNetdiskDownload/dangerous_goods_detection/all/'
 
 
 def get_mapping(files_path, file_type='jpg'):

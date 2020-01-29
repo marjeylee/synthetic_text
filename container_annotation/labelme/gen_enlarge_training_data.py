@@ -21,7 +21,6 @@ from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-
 JSON_DIR = 'D:/label_result/label_result/car_number/json/'
 TRAINING_DATA_DIR = 'D:/label_result/label_result/car_number/txt/'
 create_dir(TRAINING_DATA_DIR)

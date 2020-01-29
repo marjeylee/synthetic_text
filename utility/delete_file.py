@@ -31,6 +31,6 @@ def delete_file_in_dir(dir_path):
 
 
 if __name__ == '__main__':
-    dir_path ='D:/image/container_num/shanggang/'
+    dir_path = 'J:/dangerous_mark/tocheck/'
     shutil.rmtree(dir_path)
     # delete_file_in_dir(dir_path)

@@ -22,11 +22,11 @@ from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-JSON_DIR = 'C:/Users/lr/Desktop/new/check/'
-TRAINING_DATA_DIR = 'C:/Users/lr/Desktop/new/txt/'
+JSON_DIR = 'J:/BaiduNetdiskDownload/wuhu_car_num/json/'
+TRAINING_DATA_DIR = 'J:/BaiduNetdiskDownload/wuhu_car_num/txt/'
 create_dir(TRAINING_DATA_DIR)
 
-enlarge_radio = 1
+enlarge_radio = 0.8
 
 
 def save_image(image_str, i, file_name):

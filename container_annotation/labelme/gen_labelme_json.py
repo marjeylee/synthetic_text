@@ -16,8 +16,8 @@ import os
 
 from utility.file_path_utility import get_all_file_from_dir
 
-IMAGE_LABEL_DIR = 'C:/Users/lr/Desktop/new/left/'
-JSON_LABEL_DIR = 'C:/Users/lr/Desktop/new/json/'
+IMAGE_LABEL_DIR = 'C:/Users/lr/Desktop/check/txt/'
+JSON_LABEL_DIR = 'C:/Users/lr/Desktop/check/json/'
 
 
 def get_mapping(files_path, file_type):
