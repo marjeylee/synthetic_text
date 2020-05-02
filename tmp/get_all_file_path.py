@@ -10,10 +10,13 @@
                    2020/1/18:
 -------------------------------------------------
 """
+import os
+
 from utility.file_path_utility import get_all_files_under_directory
 
-img_dir = 'J:/car_door/to_class'
+img_dir = 'J:/BaiduNetdiskDownload/wuhu_car_num/result'
 paths = get_all_files_under_directory(img_dir)
 for path in paths:
-    with open('all.txt', mode='a', encoding='utf8') as file:
-        file.write(path + '\n')
+    with open('delete.txt', mode='a', encoding='utf8') as file:
+        _, name = os.path.split(path)
+        file.write(name + '\n')

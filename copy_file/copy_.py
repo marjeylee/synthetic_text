@@ -13,22 +13,24 @@
 import os
 import shutil
 
+from container_annotation.copy_file import GetFileMd5
 from utility.file_path_utility import get_all_files_under_directory, create_dir
 
-SOURCE_DIR = 'J:/dangerous_mark/waier'
-DES_DIR = 'J:/dangerous_mark/wai_er_dir/'
+SOURCE_DIR = 'I:\img\original'
+DES_DIR = 'I:\img\md5/'
 
 
 def __main():
     img_paths = get_all_files_under_directory(SOURCE_DIR)
     for index, path in enumerate(img_paths):
+        if '.jpg' not in path:
+            continue
         if index % 10 == 0:
             print(index)
         _, name = os.path.split(path)
         dir_name = name.split('_')[0]
-        des_dir = DES_DIR + str(dir_name) + '/'
-        create_dir(des_dir)
-        des_path = des_dir + name
+        md5_name = GetFileMd5(path)
+        des_path = DES_DIR + md5_name + '.jpg'
         shutil.copy(path, des_path)
 
 

@@ -21,8 +21,8 @@ from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-JSON_DIR = 'D:/label_result/label_result/car_number/json/'
-TRAINING_DATA_DIR = 'D:/label_result/label_result/car_number/txt/'
+JSON_DIR = 'C:/Users/lr/Desktop/waier_data/json/'
+TRAINING_DATA_DIR = 'C:/Users/lr/Desktop/waier_data/train/'
 create_dir(TRAINING_DATA_DIR)
 
 
@@ -179,7 +179,7 @@ def main():
         print(p)
         _, file_name = os.path.split(p)
         print(file_name)
-        content = read_all_content(p)
+        content = read_all_content(p, encoding='gbk')
         obj = json.loads(content)
         save_image(obj['imageData'], i, file_name)
         save_txt(obj['shapes'], i, file_name)

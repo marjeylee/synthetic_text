@@ -14,6 +14,7 @@ import os
 import shutil
 
 from chinese_project.move_file.rename_file_md5 import GetFileMd5
+from utility.file_path_utility import get_all_files_under_directory
 
 
 def get_all_file_from_dir(path_dir):
@@ -50,18 +51,31 @@ def get_mapping(files_path, file_type='jpg'):
     return mapping
 
 
-ori_path = 'D:/image/container_door/'
-des_path = 'D:/image/sort_img/'
+ori_path = 'J:/waier_nei_jika/md5/'
+des_path = 'J:/waier_nei_jika/has_no_line/'
+
+
+def get_name_set():
+    paths = get_all_files_under_directory('J:/waier_nei_jika/has_line')
+    names = set()
+    for path in paths:
+        _, name = os.path.split(path)
+        names.add(name)
+    return names
+
+
+name_set = get_name_set()
 all_paths = get_all_file_from_dir(ori_path)
 if __name__ == '__main__':
     for index, p in enumerate(all_paths):
-        if index % 100 == 0:
-            print(p)
+        if index % 1000 == 0:
+            print(index)
         if '.jpg' not in p:
             continue
-        md5_name = GetFileMd5(p)
-        file_name = str(index) + '_' + md5_name + '.jpg'
-        shutil.copy(p, des_path + file_name)
+        _, name = os.path.split(p)
+        if name in name_set:
+            file_name = str(index) + '_' + name + '.jpg'
+            shutil.copy(p, des_path + file_name)
         # label = file_name.split('-')[0]
         # if label.find('bg') >= 0 and label.find('jpg') >= 0:
         #     print(p)

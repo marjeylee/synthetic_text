@@ -22,16 +22,19 @@ from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-JSON_DIR = 'J:/BaiduNetdiskDownload/wuhu_car_num/json/'
-TRAINING_DATA_DIR = 'J:/BaiduNetdiskDownload/wuhu_car_num/txt/'
+JSON_DIR = 'C:/Users/lr/Desktop/json/'
+TRAINING_DATA_DIR = 'C:/Users/lr/Desktop/txt/'
 create_dir(TRAINING_DATA_DIR)
 
-enlarge_radio = 0.8
+enlarge_radio = 0.55
 
 
 def save_image(image_str, i, file_name):
-    image_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + \
-                 str(enlarge_radio).replace('.', '_') + '.jpg'
+    if enlarge_radio == 1:
+        image_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + '.jpg'
+    else:
+        image_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + \
+                     str(enlarge_radio).replace('.', '_') + '.jpg'
     fh = open(image_path, "wb")
     fh.write(base64.b64decode(image_str))
     fh.close()
@@ -111,6 +114,13 @@ def horizontal_points(points, nearest_points, middle_points):
 
 
 def vertical_points(points, nearest_points, middle_points):
+    """
+    vertical points
+    :param points:
+    :param nearest_points:
+    :param middle_points:
+    :return:
+    """
     return_points = [None, None, None, None]
     left = []
     right = []
@@ -152,8 +162,11 @@ def resort_points(points):
 
 
 def save_txt(shapes, i, file_name):
-    txt_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + \
-               str(enlarge_radio).replace('.', '_') + '.txt'
+    if enlarge_radio == 1:
+        txt_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + '.txt'
+    else:
+        txt_path = TRAINING_DATA_DIR + file_name.replace('.json', '') + \
+                   str(enlarge_radio).replace('.', '_') + '.txt'
     # txt_path = TRAINING_DATA_DIR + 'img_' + str(i + 1) + '.txt'
     with open(txt_path, mode='w', encoding='utf8')as file:
         for shape in shapes:
@@ -183,6 +196,8 @@ def main():
     paths = get_all_file_from_dir(JSON_DIR)
     try:
         for i, p in enumerate(paths):
+            if '.json' not in p:
+                continue
             print(i)
             if i < 0:
                 continue

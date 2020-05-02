@@ -17,8 +17,8 @@ import uuid
 from chinese_project.move_file.rename_file_md5 import GetFileMd5
 from utility.file_path_utility import get_all_files_under_directory, create_dir
 
-ORIGINAL_PATH = 'D:/label_result/text_area/horizontal/'
-DESTINATION_PATH = 'D:/label_result/container_num_text_area/horizontal/'
+ORIGINAL_PATH = 'D:/label_result_2020_3_10/text_area/vertical/'
+DESTINATION_PATH = 'D:/label_result_2020_3_10/container_num_text_area/vertical/'
 
 
 def classification_images():

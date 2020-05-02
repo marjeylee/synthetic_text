@@ -15,7 +15,8 @@ import shutil
 
 from utility.rename_file import get_all_file_from_dir
 
-__author__ = 'li'
+
+
 
 
 def delete_file_in_dir(dir_path):
@@ -31,6 +32,7 @@ def delete_file_in_dir(dir_path):
 
 
 if __name__ == '__main__':
-    dir_path = 'J:/dangerous_mark/tocheck/'
+
+    dir_path = 'C:/Users/lr/Desktop/areas/'
     shutil.rmtree(dir_path)
     # delete_file_in_dir(dir_path)
