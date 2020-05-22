@@ -16,8 +16,8 @@ import os
 
 from utility.file_path_utility import get_all_file_from_dir
 
-IMAGE_LABEL_DIR = 'C:/Users/lr/Desktop/check/txt/'
-JSON_LABEL_DIR = 'C:/Users/lr/Desktop/check/json/'
+IMAGE_LABEL_DIR = 'J:/BaiduNetdiskDownload/车号识别图片/images/'
+JSON_LABEL_DIR = 'J:/BaiduNetdiskDownload/车号识别图片/json/'
 
 
 def get_mapping(files_path, file_type):
@@ -53,9 +53,6 @@ def load_shapes(txt_path):
                      "points": [[int(points[0]), int(points[1])], [int(points[2]), int(points[3])],
                                 [int(points[4]), int(points[5])], [int(points[6]), int(points[7])]]
                      }
-            # shape = {"label": "dsada", "line_color": None, "fill_color": None,
-            #          "points": [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
-            #          }
             shapes.append(shape)
         return shapes
 

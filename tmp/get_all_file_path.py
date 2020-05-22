@@ -12,11 +12,13 @@
 """
 import os
 
+from llib.cv_utility.image_opt_utility import read_image, write_image
 from utility.file_path_utility import get_all_files_under_directory
 
-img_dir = 'J:/BaiduNetdiskDownload/wuhu_car_num/result'
+img_dir = 'J:/BaiduNetdiskDownload/0506'
+des_path = 'J:/BaiduNetdiskDownload/plate_recognize/img/'
 paths = get_all_files_under_directory(img_dir)
 for path in paths:
-    with open('delete.txt', mode='a', encoding='utf8') as file:
-        _, name = os.path.split(path)
-        file.write(name + '\n')
+    _, name = os.path.split(path)
+    image = read_image(path)
+    write_image(des_path + name, image)

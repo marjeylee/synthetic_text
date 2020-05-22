@@ -18,15 +18,16 @@ import os
 import cv2
 
 from chinese_project.move_file.rename_file_md5 import GetFileMd5
+from llib.cv_utility.image_opt_utility import read_image, write_image
 from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-JSON_DIR = 'C:/Users/lr/Desktop/json/'
-TRAINING_DATA_DIR = 'C:/Users/lr/Desktop/txt/'
+JSON_DIR = 'H:/waijika/json/new/'
+TRAINING_DATA_DIR = 'H:/waijika/txt/'
 create_dir(TRAINING_DATA_DIR)
 
-enlarge_radio = 0.55
+enlarge_radio = 1
 
 
 def save_image(image_str, i, file_name):
@@ -38,10 +39,10 @@ def save_image(image_str, i, file_name):
     fh = open(image_path, "wb")
     fh.write(base64.b64decode(image_str))
     fh.close()
-    img = cv2.imread(image_path)
+    img = read_image(image_path)
     shape = img.shape
     img = cv2.resize(img, (int(shape[1] * enlarge_radio), int(shape[0] * enlarge_radio)))
-    cv2.imwrite(image_path, img)
+    write_image(image_path, img)
     # image_path = TRAINING_DATA_DIR + 'img_' + str(i + 1) + '.jpg'
     # fh = open(image_path, "wb")
     # fh.write(base64.b64decode(image_str))
@@ -194,22 +195,22 @@ def get_file_name(image_str):
 
 def main():
     paths = get_all_file_from_dir(JSON_DIR)
-    try:
-        for i, p in enumerate(paths):
-            if '.json' not in p:
-                continue
-            print(i)
-            if i < 0:
-                continue
-            content = read_all_content(p)
-            obj = json.loads(content)
-            file_name = os.path.split(p)[1].split('.')[0]
-            # file_name = get_file_name(obj['imageData'])
-            save_image(obj['imageData'], i, file_name)
-            save_txt(obj['shapes'], i, file_name)
-    except Exception as e:
-        print(p)
-        print(e)
+    # try:
+    for i, p in enumerate(paths):
+        if '.json' not in p:
+            continue
+        print(i)
+        if i < 0:
+            continue
+        content = read_all_content(p)
+        obj = json.loads(content)
+        file_name = os.path.split(p)[1].split('.')[0]
+        # file_name = get_file_name(obj['imageData'])
+        save_image(obj['imageData'], i, file_name)
+        save_txt(obj['shapes'], i, file_name)
+# except Exception as e:
+#     print(p)
+#     print(e)
 
 
 if __name__ == '__main__':
