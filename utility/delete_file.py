@@ -33,6 +33,6 @@ def delete_file_in_dir(dir_path):
 
 if __name__ == '__main__':
 
-    dir_path = 'H:/waijika/txt/'
+    dir_path = 'D:/label_result_2020_3_10/container_num_text_area/vertical_or/'
     shutil.rmtree(dir_path)
     # delete_file_in_dir(dir_path)

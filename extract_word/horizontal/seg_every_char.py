@@ -17,7 +17,7 @@ import cv2
 import numpy as np
 
 from extract_word.vertical.gen_text_pixel import to_gray, get_txt_pixels
-from utility.file_path_utility import get_all_file_from_dir, get_all_files_under_directory
+from utility.file_path_utility import  get_all_files_under_directory
 
 
 def append_text_area(text_array, current_array):

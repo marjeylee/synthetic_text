@@ -14,20 +14,18 @@ import base64
 import json
 import math
 import os
-
 import cv2
-
 from chinese_project.move_file.rename_file_md5 import GetFileMd5
 from llib.cv_utility.image_opt_utility import read_image, write_image
 from utility.file_io_utility import read_all_content
 from utility.file_path_utility import get_all_file_from_dir, create_dir
 import numpy as np
 
-JSON_DIR = 'H:/waijika/json/new/'
-TRAINING_DATA_DIR = 'H:/waijika/txt/'
+JSON_DIR = '/data/data/dangerous_bb/tt/project/daokou/data/json/'
+TRAINING_DATA_DIR = 'G:/tmp/txt/'
 create_dir(TRAINING_DATA_DIR)
 
-enlarge_radio = 1
+enlarge_radio = 0.9
 
 
 def save_image(image_str, i, file_name):
@@ -197,17 +195,22 @@ def main():
     paths = get_all_file_from_dir(JSON_DIR)
     # try:
     for i, p in enumerate(paths):
-        if '.json' not in p:
-            continue
-        print(i)
-        if i < 0:
-            continue
-        content = read_all_content(p)
-        obj = json.loads(content)
-        file_name = os.path.split(p)[1].split('.')[0]
-        # file_name = get_file_name(obj['imageData'])
-        save_image(obj['imageData'], i, file_name)
-        save_txt(obj['shapes'], i, file_name)
+        try:
+            if '.json' not in p:
+                continue
+            print(i)
+            if i < 0:
+                continue
+            content = read_all_content(p)
+            obj = json.loads(content)
+            file_name = os.path.split(p)[1].split('.')[0]
+            # file_name = get_file_name(obj['imageData'])
+            save_image(obj['imageData'], i, file_name)
+            save_txt(obj['shapes'], i, file_name)
+        except:
+            pass
+
+
 # except Exception as e:
 #     print(p)
 #     print(e)
